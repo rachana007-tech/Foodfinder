@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Taste-Based Search</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container py-5">
+
+<h2 class="mb-4 fw-bold">Search by Taste Type</h2>
+
+<form method="GET" class="mb-4">
+    <select name="taste" class="form-select w-50">
+        <option value="">-- Select Taste --</option>
+        <option value="sweet">Sweet</option>
+        <option value="spicy">Spicy</option>
+        <option value="tangy">Tangy</option>
+        <option value="breakfast">Breakfast</option>
+        <option value="dessert">Dessert</option>
+    </select>
+
+    <button class="btn btn-primary mt-3">Filter</button>
+</form>
+
+<div class="row">
+    {% for dish in dishes %}
+    <div class="col-md-4">
+        <div class="card shadow-sm mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ dish.name }}</h5>
+                <p class="card-text"><strong>Category:</strong> {{ dish.category }}</p>
+                <a href="{% url 'dish_detail' dish.name %}" class="btn btn-primary btn-sm">View Details</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No dishes found.</p>
+    {% endfor %}
+</div>
+
+</body>
+</html>

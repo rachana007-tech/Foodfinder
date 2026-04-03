@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurants</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+
+        /* Background image + dark overlay */
+        body {
+            background:
+               linear-gradient(rgba(34, 33, 33, 0.8), rgba(18, 17, 17, 0.9)),
+                url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZIqhsqIzgwGQrshFX8hJ33jpXrKzYQz8BwUBkVma5JYnCsjuPtqZIHgiYTrnxYcOYQxA&usqp=CAU")
+                no-repeat center center fixed;
+            background-size: cover;
+            color: #f5d67b;
+            font-family: "Poppins", sans-serif;
+        }
+
+        /* Back button */
+        .btn-back {
+            background: #f5d67b;
+            color: black;
+            border-radius: 25px;
+            font-weight: bold;
+            padding: 8px 18px;
+            transition: 0.3s ease;
+        }
+
+        .btn-back:hover {
+            background: #d9b849;
+            color: black;
+        }
+
+        /* Restaurant Card */
+        .restaurant-card {
+            border-radius: 18px;
+            overflow: hidden;
+            transition: 0.3s ease;
+            background: rgba(17,17,17,0.90);
+            border: 1px solid #333;
+        }
+
+        .restaurant-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 30px rgba(255, 215, 0, 0.25);
+            border-color: #f5d67b;
+        }
+
+        .restaurant-img {
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .restaurant-title {
+            color: #f5d67b;
+            font-weight: 700;
+        }
+
+        .detail-text {
+            color: #ddd;
+        }
+
+        .btn-map {
+            background: #f5d67b;
+            color: black;
+            font-weight: bold;
+            border-radius: 25px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn-map:hover {
+            background: #d9b849;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container py-5">
+
+    <!-- BACK BUTTON -->
+    <a href="{% url 'home' %}" class="btn btn-back mb-4">
+        ← Back to Home
+    </a>
+
+    <!-- PAGE TITLE -->
+     
+    <h2 class="fw-bold mb-4 text-center" style="color:#0e0e0e;">
+        <center><div style="background-color: #f5d67b;font-family: cursive;width: 500px;">🛎️ All Restaurants</div></center>
+    </h2>
+     
+
+    <div class="row g-4">
+
+        {% for r in restaurants %}
+        <div class="col-md-4">
+
+            <div class="card restaurant-card shadow-sm">
+
+                <!-- Restaurant Image -->
+                {% if r.image_url %}
+                    <img src="{{ r.image_url }}" class="restaurant-img">
+                {% else %}
+                    <img src="https://i.imgur.com/KHvYQyH.jpeg" class="restaurant-img">
+                {% endif %}
+
+                <div class="card-body">
+
+                    <h5 class="restaurant-title">{{ r.name }}</h5>
+
+                    <p class="mb-1 detail-text"><strong style="color:#f5d67b;">City:</strong> {{ r.city }}</p>
+                    <p class="mb-1 detail-text"><strong style="color:#f5d67b;">Address:</strong> {{ r.address }}</p>
+                    <p class="detail-text"><strong style="color:#f5d67b;">Rating:</strong> ⭐ {{ r.rating }}</p>
+
+                    <!-- Exact Location Button -->
+                    {% if r.latitude and r.longitude %}
+                    <a href="https://www.google.com/maps?q={{ r.latitude }},{{ r.longitude }}"
+                       target="_blank"
+                       class="btn btn-map">
+                        📍 View Exact Location
+                    </a>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+        <p class="text-center fw-bold fs-4" style="color:#f5d67b;">No restaurants found.</p>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

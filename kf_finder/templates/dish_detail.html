@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ dish.name }} | Karnataka Food Finder</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #fff7ec;
+            font-family: "Poppins", sans-serif;
+        }
+
+        /* Dish Banner */
+        .dish-banner {
+            width: 100%;
+            height: 380px;
+            background: url("{{ dish.image_url }}") no-repeat center center/cover;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .dish-card {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Restaurant card */
+        .restaurant-card {
+            transition: 0.3s ease;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .restaurant-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+        }
+
+        /* Restaurant Image */
+        .restaurant-img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        /* Back Button */
+        .btn-back {
+            background: #d35400;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .btn-back:hover {
+            background: #b84300;
+            color: white;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container py-4">
+
+    <!-- Back Button -->
+    <a href="{% url 'dish_list' %}" class="btn btn-back mb-4">← Back to Dishes</a>
+
+    <!-- Dish Image Banner -->
+    <div class="dish-banner mb-4"></div>
+
+    <!-- Dish Details -->
+    <div class="card shadow-sm mb-5 dish-card">
+        <div class="card-body py-4 px-4">
+
+            <h1 class="fw-bold">{{ dish.name }}</h1>
+
+            <div class="mt-2 mb-3">
+                <span class="badge bg-primary me-2 px-3 py-2">{{ dish.category }}</span>
+                <span class="badge bg-warning text-dark me-2 px-3 py-2">{{ dish.region }}</span>
+                <span class="badge bg-danger px-3 py-2">{{ dish.taste }}</span>
+            </div>
+
+            <p class="fs-5 text-muted">{{ dish.description }}</p>
+        </div>
+    </div>
+
+    <!-- Restaurants -->
+    <h3 class="fw-bold mb-4" style="color:#d35400;">Restaurants Serving This Dish</h3>
+
+    <div class="row">
+        {% for r in restaurants %}
+        <div class="col-md-4 mb-4">
+            <div class="card restaurant-card shadow-sm h-100">
+
+                <!-- Real restaurant image from admin -->
+                <img class="restaurant-img" src="{{ r.image_url }}" alt="{{ r.name }}">
+
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">{{ r.name }}</h5>
+                    <p class="mb-1"><strong>City:</strong> {{ r.city }}</p>
+                    <p class="mb-1"><strong>Address:</strong> {{ r.address }}</p>
+                    <p class="mb-1"><strong>Rating:</strong> ⭐ {{ r.rating }}</p>
+                </div>
+
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-muted">No restaurants found for this dish.</p>
+        {% endfor %}
+    </div>
+
+</div>
+
+</body>
+</html>

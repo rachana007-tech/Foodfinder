@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karnataka Local Food Finder</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .hero {
+            background: url('https://assets.cntraveller.in/photos/6454f4a1f0771fd865ff74f5/master/pass/Untitled_Artwork%203%20copy.png')
+                        no-repeat center center/cover;
+            height: 100vh;
+            color: white;
+            position: relative;
+            background-attachment: fixed;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.65);
+        }
+
+        .hero-content {
+            position: relative;
+            top: 35%;
+            transform: translateY(-35%);
+        }
+
+        .feature-card {
+            border: none;
+            border-radius: 15px;
+            transition: 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+        }
+
+        .feature-icon {
+            font-size: 55px;
+            color: #ff8c00;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm py-3">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-4" href="{% url 'home' %}">🍛 Karnataka Food Finder</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link fw-bold" href="{% url 'dish_list' %}">Dishes</a></li>
+                <li class="nav-item"><a class="nav-link fw-bold" href="{% url 'restaurant_list' %}">Restaurants</a></li>
+                <li class="nav-item"><a class="nav-link fw-bold" href="{% url 'feedback' %}">Feedback</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section class="hero d-flex align-items-center">
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-content text-center">
+        <h1 class="display-4 fw-bold mb-3">Discover Karnataka's Authentic Local Dishes</h1>
+        <p class="lead mb-4 fs-4">From Mysuru Pak to Bisi Bele Bath — explore the taste of Karnataka.</p>
+
+        <!-- SEARCH BAR -->
+        <form method="GET" action="{% url 'dish_list' %}">
+            <div class="input-group input-group-lg w-75 mx-auto shadow">
+                <input type="text" class="form-control" name="q" 
+                       placeholder="Try: breakfast, spicy, tangy, sweets, desserts, region...">
+                <button class="btn btn-warning fw-bold">Search</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- FEATURE CARDS -->
+<section class="py-5 bg-light">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-5 fs-1">What You Can Explore</h2>
+
+        <div class="row g-4">
+
+            <!-- EXPLORE DISHES -->
+            <div class="col-md-4">
+                <div class="card feature-card shadow-lg p-4">
+                    <div class="feature-icon text-center">🍽</div>
+                    <h4 class="fw-bold mt-3">Explore Local Dishes</h4>
+                    <p>Discover Karnataka’s famous dishes with origins & flavors.</p>
+                    <a href="{% url 'dish_list' %}" class="btn btn-primary">View Dishes</a>
+                </div>
+            </div>
+
+            <!-- RESTAURANTS -->
+            <div class="col-md-4">
+                <div class="card feature-card shadow-lg p-4">
+                    <div class="feature-icon text-center">👩‍🍳</div>
+                    <h4 class="fw-bold mt-3">Find Restaurants</h4>
+                    <p>Locate authentic eateries serving regional Karnataka food.</p>
+                    <a href="{% url 'restaurant_list' %}" class="btn btn-primary">View Restaurants</a>
+                </div>
+            </div>
+
+            <!-- CUSTOMER FEEDBACK -->
+            <div class="col-md-4">
+                <div class="card feature-card shadow-lg p-4">
+                    <div class="feature-icon text-center">⭐</div>
+                    <h4 class="fw-bold mt-3">Customer Feedback</h4>
+                    <p>Share your food experience & help others discover great places.</p>
+                    <a href="{% url 'feedback' %}" class="btn btn-primary">Give Feedback</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="text-center py-3 mt-5">
+    <p class="mb-0">© 2025 Karnataka Local Food Finder | Built with ❤ using Django + Bootstrap</p>
+</footer>
+
+</body>
+</html>
